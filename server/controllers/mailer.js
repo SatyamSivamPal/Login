@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
 import Mailgen from "mailgen";
 
-import ENV from "../config.js";
+import  dotenv from "dotenv"
+
+dotenv.config()
 
 // let nodeConfig = {
 //     host: "smtp.ethereal.email",
@@ -48,8 +50,8 @@ import ENV from "../config.js";
 let config = {
   service: "gmail",
   auth: {
-    user: ENV.EMAIL,
-    pass: ENV.PASSWORD,
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 };
 let transporter = nodemailer.createTransport(config);
@@ -79,7 +81,7 @@ export const registerMail = async (req, res) => {
   var emailBody = MailGenerator.generate(email);
 
   let message = {
-    from:ENV.EMAIL,
+    from:process.env.EMAIL,
     to:userEmail,
     subject:subject || "Signup Sucessfully",
     html:emailBody
